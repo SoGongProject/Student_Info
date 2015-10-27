@@ -159,6 +159,7 @@ public class Student_List extends JFrame implements ActionListener {
 			}else if(com == view) {
 				if(cmd != VIEW)
 					setEnable(VIEW);
+					new View_Student();
 			} else if(com == cancel) {
 				cmd = NONE;
 			} 

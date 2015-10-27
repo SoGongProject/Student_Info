@@ -23,14 +23,13 @@ import javax.swing.JTextField;
 public class View_Info extends JFrame{
     Connection con;
     Statement stmt;
-    int get_id;
+    static String get_id;
     JTable table;
     JPanel panel;
     
     public View_Info(){
     	
-    	//get_id = View_Student.confirm_id;
-		get_id = 1313777;
+    	get_id = View_Student.confirm_id;
     	System.out.println(get_id);
 		
     	JPanel top = new JPanel();
@@ -53,7 +52,7 @@ public class View_Info extends JFrame{
 		try {
 			//DB연결하기 위한 url 저장
 			Class.forName("com.mysql.jdbc.Driver");
-			String url = "jdbc:mysql://localhost/sogong_db";
+			String url = "jdbc:mysql://localhost/Student_Management";
 			//계정 연결
 			con = DriverManager.getConnection(url, "sogong", "1234");
 			//Statement 객체를 얻음
@@ -70,13 +69,13 @@ public class View_Info extends JFrame{
        int i = 0;
      
        try {
-    	   int cid = get_id;
-    	   ResultSet rs2=stmt.executeQuery("select ID from student_management where ID="+cid);
+    	   String cid = get_id;
+    	   ResultSet rs2=stmt.executeQuery("select ID from student where ID="+cid);
    		if(!rs2.next()) { 	
    			JOptionPane.showMessageDialog(getParent(), "아이디에 맞는 데이터가 없습니다.");
    				return ;
    		}
-           ResultSet rs = stmt.executeQuery("select ID,Name,Department,Phone_number from student_management where ID="+cid);
+           ResultSet rs = stmt.executeQuery("select ID,Name,Department,Phone_number from student where ID="+cid);
            rs.last();
            int nRecord = rs.getRow();
            context = new String[nRecord][4];
@@ -87,7 +86,6 @@ public class View_Info extends JFrame{
               String Department = rs.getString("Department");
               String Phone_Number = rs.getString("Phone_Number");
                         
-
               context[i][0] = ID + "";
               context[i][1] = Name +"";
               context[i][2] = Department +"";
