@@ -160,6 +160,7 @@ public class Student_List extends JFrame implements ActionListener {
 					setEnable(UPDATE);
 			}else if(com == view) {
 				if(cmd != VIEW)
+					new View_Student();
 					setEnable(VIEW);
 			} else if(com == cancel) {
 				cmd = NONE;
