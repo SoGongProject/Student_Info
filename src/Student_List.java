@@ -81,6 +81,7 @@ public class Student_List extends JFrame implements ActionListener {
 		add("South", bottom);
 		cmd = NONE;
 		DBcon();
+		TotalView();
 		
 		setSize(800, 500);
 		setVisible(true);
@@ -90,9 +91,9 @@ public class Student_List extends JFrame implements ActionListener {
 		try {
 			//DB연결하기 위한 url 저장
 			Class.forName("com.mysql.jdbc.Driver");
-			String url = "jdbc:mysql://localhost/account_shham";
+			String url = "jdbc:mysql://localhost/student_management";
 			//계정 연결
-			conn = DriverManager.getConnection(url, "shham", "0802");
+			conn = DriverManager.getConnection(url, "sogong", "1234");
 			//Statement 객체를 얻음
 			stat = conn.createStatement();
 			System.out.println("디비연결!!");
@@ -155,12 +156,12 @@ public class Student_List extends JFrame implements ActionListener {
 					setEnable(DELETE);
 			}else if(com == update) {
 				if(cmd != UPDATE)
+					new Update_Student();
 					setEnable(UPDATE);
-				new Update_Student();
 			}else if(com == view) {
 				if(cmd != VIEW)
+					new View_Student();
 					setEnable(VIEW);
-				new View_Student();
 			} else if(com == cancel) {
 				cmd = NONE;
 			} 
@@ -170,6 +171,39 @@ public class Student_List extends JFrame implements ActionListener {
 		}
 		return ;
 	}
+	
+	public void TotalView() {
+		fields = new Vector();
+		contents = new Vector();
+		try{
+			//vecotr에 저장할 내용의 질의문
+			rs = stat.executeQuery("select * from Student order by ID");
+			//정보 임시저장
+			rsmd = rs.getMetaData();
+			//애트리뷰트의 이름 출력
+			for(int i=1;i<=rsmd.getColumnCount();++i){
+				fields.add(rsmd.getColumnName(i));
+			}
+			Vector oneRow;
+			while(rs.next()){
+				//모든 값을 차례대로 한 줄 한 줄 출력
+				oneRow = new Vector();
+				for(int i=0;i<fields.size();i++){
+					oneRow.add(rs.getString(i+1));
+				}
+				contents.add(oneRow);
+			}
+			dtm.setDataVector(contents,fields);
+			table = new JTable(dtm);
+		}catch(Exception ex) {
+			System.out.println(ex.getMessage());
+			ex.printStackTrace();
+		}
+
+		return ;
+		
+	}
+	
 	public static void main(String args[]) {
 		new Student_List();
 	}
