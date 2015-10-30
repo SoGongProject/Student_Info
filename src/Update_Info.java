@@ -32,6 +32,10 @@ public class Update_Info extends JFrame implements ActionListener{
     JTextField  Stu_dept;
     JTextField  Stu_phone;
     JButton     mod;
+    String idData;
+    String nameData;
+    String deptData;
+    String phoneData;
     
     public Update_Info(){
     	
@@ -39,6 +43,8 @@ public class Update_Info extends JFrame implements ActionListener{
     	
     	get_id = Update_Student.confirm_id;
     	System.out.println(get_id);
+    	
+    	DBcon();//DB 연결
     	
     	JPanel top = new JPanel();
 		top.setBackground(new Color(76,76,76));
@@ -62,7 +68,16 @@ public class Update_Info extends JFrame implements ActionListener{
 		lid.setBackground(new Color(153,153,153));
 		pid.add(lid);
 		pid.add(Stu_id = new JTextField(10));
-		
+		try {
+			ResultSet indata = stmt.executeQuery("select ID from Student" +
+					" where ID="+get_id);
+			indata.first();
+			idData = indata.getString("ID");
+			Stu_id.setText(idData);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
+				
 		JPanel pname = new JPanel();
 		pname.setBackground(new Color(153,153,153));
 		JLabel lname = new JLabel("Name");
@@ -71,6 +86,15 @@ public class Update_Info extends JFrame implements ActionListener{
 		lname.setBackground(new Color(153,153,153));
 		pname.add(lname);
 		pname.add(Stu_name = new JTextField(10));
+		try {
+			ResultSet indata = stmt.executeQuery("select Name from Student" +
+					" where ID="+get_id);
+			indata.first();
+			nameData = indata.getString("Name");
+			Stu_name.setText(nameData);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
 		
 		JPanel pdept = new JPanel();
 		pdept.setBackground(new Color(153,153,153));
@@ -80,6 +104,15 @@ public class Update_Info extends JFrame implements ActionListener{
 		ldept.setBackground(new Color(153,153,153));
 		pdept.add(ldept);
 		pdept.add(Stu_dept = new JTextField(10));
+		try {
+			ResultSet indata = stmt.executeQuery("select Department from Student" +
+					" where ID="+get_id);
+			indata.first();
+			deptData = indata.getString("Department");
+			Stu_dept.setText(deptData);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
 		
 		JPanel pphone = new JPanel();
 		pphone.setBackground(new Color(153,153,153));
@@ -89,6 +122,15 @@ public class Update_Info extends JFrame implements ActionListener{
 		lphone.setBackground(new Color(153,153,153));
 		pphone.add(lphone);
 		pphone.add(Stu_phone = new JTextField(10));
+		try {
+			ResultSet indata = stmt.executeQuery("select Phone_Number from Student" +
+					" where ID="+get_id);
+			indata.first();
+			phoneData = indata.getString("Phone_Number");
+			Stu_phone.setText(phoneData);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
 				
 		center.add(pid);
 		center.add(pname);
@@ -98,6 +140,7 @@ public class Update_Info extends JFrame implements ActionListener{
 		Stu_id.setEnabled(false);
 		Stu_name.setEnabled(false);
 		Stu_dept.setEnabled(false);
+		Stu_phone.setEditable(true);
 
 		//활성 버튼 창
 		JPanel bottom = new JPanel();
@@ -124,11 +167,7 @@ public class Update_Info extends JFrame implements ActionListener{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(500, 300);
 		setVisible(true);
-		
-		DBcon();//DB 연결
 
-        setSize(600, 400);
-        setVisible(true);
     }
     
     private void DBcon() {
@@ -185,7 +224,7 @@ public class Update_Info extends JFrame implements ActionListener{
 		return ;
 
 	}
-     
+    
  
     public static void main(String[] args) {
        
