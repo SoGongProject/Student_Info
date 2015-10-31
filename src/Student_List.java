@@ -108,12 +108,16 @@ public class Student_List extends JFrame implements ActionListener {
 		Component com = (Component) e.getSource();
 		try {
 			if(com == add) {
+				dispose();
 				new Add_Student();
 			}else if(com == delete) {
+				dispose();
 				new Delete_Student();
 			}else if(com == update) {
+				dispose();
 				new Update_Student();
 			}else if(com == view) {
+				dispose();
 				new View_Student();
 			}
 		} catch(Exception ex) {

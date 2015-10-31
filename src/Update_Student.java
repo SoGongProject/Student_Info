@@ -9,7 +9,7 @@ public class Update_Student extends JFrame implements ActionListener{
 	JTextField  Stu_id;
 	static String confirm_id;
 	Label      lid;
-	JButton     bok;
+	JButton     bok,bcancel;
 	Connection con;
 	Statement  stmt;
 
@@ -33,16 +33,29 @@ public class Update_Student extends JFrame implements ActionListener{
 				
 		center.add(pid);
 
-		//활성 버튼 창
 		JPanel bottom = new JPanel();
-		bottom.setLayout(new GridLayout(1,2));
-		bottom.setBackground(new Color(76,76,76));
-		//정보를 확인하고 다음 페이지로 넘겨주는 버튼
-		bottom.add(bok = new JButton("검색"));
-		bok.setForeground(new Color(255,224,140));
-		bok.setBackground(new Color(76,76,76));
-		bok.addActionListener(this);
+	    bottom.setBackground(new Color(76,76,76));
+	    bottom.setLayout(new GridLayout(1,2));
+	      
+	    JPanel pok = new JPanel();
+	    pok.setBackground(new Color(76,76,76));
+	    pok.add(bok = new JButton("수정하기"));
+	    bok.setBackground(new Color(76,76,76));
+	    bok.setForeground(new Color(255,224,140));
+	    bok.setFont(new Font("HY헤드라인M",Font.PLAIN,15));
+	    bok.addActionListener(this);
+	      
+	    JPanel pcancel = new JPanel();
+	    pcancel.setBackground(new Color(76,76,76));
+	    pcancel.add(bcancel = new JButton("돌아가기"));
+	    bcancel.setBackground(new Color(76,76,76));
+	    bcancel.setForeground(new Color(255,224,140));
+	    bcancel.setFont(new Font("HY헤드라인M",Font.PLAIN,15));
+	    bcancel.addActionListener(this);
 		
+	    bottom.add(pok);
+	    bottom.add(pcancel);
+	    
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				destroy();
@@ -113,14 +126,15 @@ public class Update_Student extends JFrame implements ActionListener{
 					new Update_Info();
 				}		
 			}
+			else if(c==bcancel){
+	        	 dispose();
+	        	 new Student_List();
+	         }
 		}catch(Exception ex) {
 			ex.printStackTrace(System.out);
 		}
 
 		return ;
 	}
-	
-	public static void main(String args[]) {
-		new Update_Student();
-	}
+
 }

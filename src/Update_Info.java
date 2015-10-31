@@ -222,13 +222,6 @@ public class Update_Info extends JFrame implements ActionListener{
 		}
 
 		return ;
-
 	}
-    
- 
-    public static void main(String[] args) {
-       
-    	new Update_Info();
-    }
  
 }

@@ -100,11 +100,8 @@ public class View_Info extends JFrame{
        JScrollPane scrollPane = new JScrollPane(table);
        add(scrollPane, BorderLayout.CENTER);
     }
-     
- 
-    public static void main(String[] args) {
-       
-    	new View_Info();
-    }
+    public static void main(String args[]) {
+		new View_Info();
+	}
  
 }
