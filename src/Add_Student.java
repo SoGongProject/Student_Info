@@ -168,7 +168,8 @@ public class Add_Student extends JFrame implements ActionListener {
                }
       
             else{
-               String query ="insert into Student (ID,Name,Department,Phone_Number) values ("+cid+","+cname+","+cdept+","+cpnum+")"; 
+               String query ="insert into Student (ID,Name,Department,Phone_Number)" +
+               		" values ("+cid+","+cname+","+cdept+","+cpnum+")"; 
                stmt = conn.createStatement();
                stmt.executeUpdate(query);
                
