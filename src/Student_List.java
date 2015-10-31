@@ -150,9 +150,11 @@ public class Student_List extends JFrame implements ActionListener {
 		try {
 			if(com == add) {
 				if(cmd != ADD)
+					new Add_Student();
 					setEnable(ADD);
 			}else if(com == delete) {
 				if(cmd != DELETE)
+					new Delete_Student();
 					setEnable(DELETE);
 			}else if(com == update) {
 				if(cmd != UPDATE)
@@ -163,6 +165,7 @@ public class Student_List extends JFrame implements ActionListener {
 					new View_Student();
 					setEnable(VIEW);
 			} else if(com == cancel) {
+				new Student_List();
 				cmd = NONE;
 			} 
 		} catch(Exception ex) {
