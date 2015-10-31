@@ -38,7 +38,7 @@ public class View_Student extends JFrame implements ActionListener{
 		bottom.setLayout(new GridLayout(1,2));
 		bottom.setBackground(new Color(76,76,76));
 		//정보를 확인하고 다음 페이지로 넘겨주는 버튼
-		bottom.add(bok = new JButton("로그인"));
+		bottom.add(bok = new JButton("찾기"));
 		bok.setForeground(new Color(255,224,140));
 		bok.setBackground(new Color(76,76,76));
 		bok.addActionListener(this);
