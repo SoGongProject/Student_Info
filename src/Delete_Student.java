@@ -139,5 +139,8 @@ public class Delete_Student extends JFrame implements ActionListener{
 
 		return ;
 	}
+	public static void main(String args[]) {
+		new Delete_Student();
+	}
 
 }

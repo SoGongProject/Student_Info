@@ -136,5 +136,8 @@ public class Update_Student extends JFrame implements ActionListener{
 
 		return ;
 	}
+	public static void main(String args[]) {
+		new Update_Student();
+	}
 
 }

@@ -200,5 +200,8 @@ public class Add_Student extends JFrame implements ActionListener {
             }
             return;
          }
+   public static void main(String args[]) {
+		new Add_Student();
+	}
             
 }

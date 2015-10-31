@@ -136,6 +136,9 @@ public class View_Student extends JFrame implements ActionListener{
 
 		return ;
 	}
+	public static void main(String args[]) {
+		new View_Student();
+	}
 	
 }
 
