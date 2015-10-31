@@ -80,7 +80,7 @@ public class Delete_Student extends JFrame implements ActionListener{
 			Class.forName("com.mysql.jdbc.Driver");
 			String url = "jdbc:mysql://localhost/student_management";
 			//계정 연결
-			con = DriverManager.getConnection(url, "anna", "5502313");
+			con = DriverManager.getConnection(url, "sogong", "1234");
 			//Statement 객체를 얻음
 			stmt = con.createStatement();
 			Stu_id.setEditable(true);
