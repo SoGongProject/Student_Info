@@ -7,17 +7,12 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class Student_List extends JFrame implements ActionListener {
-	public static final int  NONE   = 0;
-	public static final int  ADD    = 1;
-	public static final int  UPDATE = 2;
-	public static final int  DELETE = 3;
-	public static final int  VIEW  = 4;
-	
+
 	Vector fields,contents;
 	JTable table;
 	JScrollPane scroll;
 	JLabel      ltop;
-	JButton     add, update, delete, view, cancel;
+	JButton     add, update, delete, view;
 	Connection conn;
 	DefaultTableModel dtm;
 	Statement  stat;
@@ -63,10 +58,6 @@ public class Student_List extends JFrame implements ActionListener {
 		view.setForeground(new Color(255,224,140));
 		view.setBackground(new Color(76,76,76));
 		view.addActionListener(this);
-		bottom.add(cancel = new JButton("√Îº“"));
-		cancel.setForeground(new Color(255,224,140));
-		cancel.setBackground(new Color(76,76,76));
-		cancel.addActionListener(this);
 
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
@@ -79,7 +70,6 @@ public class Student_List extends JFrame implements ActionListener {
 		add("North",top);
 		add("Center", scroll);
 		add("South", bottom);
-		cmd = NONE;
 		DBcon();
 		TotalView();
 		
@@ -113,60 +103,19 @@ public class Student_List extends JFrame implements ActionListener {
 		} catch(Exception ex) { }
 	}
 
-	public void setEnable(int n) {
-		add.setEnabled(false);
-		update.setEnabled(false);
-		delete.setEnabled(false);
-		view.setEnabled(false);
-		switch(n) {
-			case ADD:
-				add.setEnabled(true);
-				cmd = ADD;
-				break;
-			case UPDATE:
-				update.setEnabled(true);
-				cmd = UPDATE;
-				break;
-			case DELETE:
-				delete.setEnabled(true);
-				cmd = DELETE;
-				break;
-			case VIEW:
-				view.setEnabled(true);
-				cmd = VIEW;
-				break;
-			case NONE:
-				add.setEnabled(true);
-				update.setEnabled(true);
-				delete.setEnabled(true);
-				view.setEnabled(true);
-				break;
-		}
-	}
-
 	public void actionPerformed(ActionEvent e) {
 		ResultSet rs = null;
 		Component com = (Component) e.getSource();
 		try {
 			if(com == add) {
-				if(cmd != ADD)
-					new Add_Student();
-					setEnable(ADD);
+				new Add_Student();
 			}else if(com == delete) {
-				if(cmd != DELETE)
-					new Delete_Student();
-					setEnable(DELETE);
+				new Delete_Student();
 			}else if(com == update) {
-				if(cmd != UPDATE)
-					new Update_Student();
-					setEnable(UPDATE);
+				new Update_Student();
 			}else if(com == view) {
-				if(cmd != VIEW)
-					new View_Student();
-					setEnable(VIEW);
-			} else if(com == cancel) {
-				cmd = NONE;
-			} 
+				new View_Student();
+			}
 		} catch(Exception ex) {
 			System.out.println(ex.getMessage());
 			ex.printStackTrace();
