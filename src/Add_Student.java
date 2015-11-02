@@ -3,24 +3,15 @@ import java.awt.event.*;
 import java.sql.*;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Vector;
 
 public class Add_Student extends JFrame implements ActionListener {
    
-   JTable table;
-   JTextField  Stu_id,Stu_name,Stu_dept,Stu_phone;
-   JButton     ok,cancel;
-   JLabel ltop, lid, lname, ldept,lpnum;
+   JTextField  Stu_id, Stu_name, Stu_dept, Stu_phone;
+   JButton     ok, cancel;
+   JLabel ltop, lid, lname, ldept, lpnum;
    Connection conn;
-   DefaultTableModel dtm;
    Statement  stmt;
-   int        cmd;
    ResultSet rs;
-   ResultSetMetaData rsmd;
    
    public Add_Student() {
       super("ADD");
@@ -153,13 +144,6 @@ public class Add_Student extends JFrame implements ActionListener {
       } catch(Exception ex) { }
    }
 
-   public void clear() {
-     Stu_id.setText("");
-     Stu_name.setText("");
-     Stu_dept.setText("");
-     Stu_phone.setText("");
-   }
-
    public void actionPerformed(ActionEvent e) {
       
       Component c = (Component) e.getSource();
@@ -178,8 +162,7 @@ public class Add_Student extends JFrame implements ActionListener {
       
             else{
                String query ="insert into Student (ID,Name,Department,Phone_Number)" +
-               		" values ("+cid+","+cname+","+cdept+","+cpnum+")"; 
-               stmt = conn.createStatement();
+               		" values ('"+cid+"','"+cname+"','"+cdept+"','"+cpnum+"')"; 
                stmt.executeUpdate(query);
                
                JOptionPane.showMessageDialog(getParent(),"학생 등록 완료");

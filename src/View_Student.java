@@ -10,8 +10,8 @@ public class View_Student extends JFrame implements ActionListener{
 	static String confirm_id;
 	Label      lid;
 	JButton     bok,bcancel;
-	Connection con;
-	Statement  stat;
+	Connection conn;
+	Statement  stmt;
 
 	public View_Student() {
 		//title
@@ -80,9 +80,9 @@ public class View_Student extends JFrame implements ActionListener{
 			Class.forName("com.mysql.jdbc.Driver");
 			String url = "jdbc:mysql://localhost/Student_Management";
 			//계정 연결
-			con = DriverManager.getConnection(url, "sogong", "1234");
+			conn = DriverManager.getConnection(url, "sogong", "1234");
 			//Statement 객체를 얻음
-			stat = con.createStatement();
+			stmt = conn.createStatement();
 			Stu_id.setEditable(true);
 			System.out.println("DB가 연결되었습니다.");
 		} catch (Exception e) {
@@ -93,11 +93,11 @@ public class View_Student extends JFrame implements ActionListener{
 	//연결된 데이터베이스를 끊어주는 함수
 	private void destroy() {
 		try {
-			if(stat != null) {
-				stat.close();
+			if(stmt != null) {
+				stmt.close();
 			}
-			if(con != null) {
-				con.close();
+			if(conn != null) {
+				conn.close();
 			}
 		} catch(Exception ex) { }
 	}
@@ -115,7 +115,7 @@ public class View_Student extends JFrame implements ActionListener{
 					return ;
 				}
 				//동일한 사용자ID가 있는지 확인
-				ResultSet rs2=stat.executeQuery("select ID from student" +
+				ResultSet rs2=stmt.executeQuery("select ID from Student" +
 						" where ID="+confirm_id);
 				if(!rs2.next()) {
 					//등록되지 않은 사용자

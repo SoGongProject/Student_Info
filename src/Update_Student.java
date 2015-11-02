@@ -10,7 +10,7 @@ public class Update_Student extends JFrame implements ActionListener{
 	static String confirm_id;
 	Label      lid;
 	JButton     bok,bcancel;
-	Connection con;
+	Connection conn;
 	Statement  stmt;
 
 	public Update_Student() {
@@ -78,11 +78,11 @@ public class Update_Student extends JFrame implements ActionListener{
 		try {
 			//DB연결하기 위한 url 저장
 			Class.forName("com.mysql.jdbc.Driver");
-			String url = "jdbc:mysql://localhost/student_management";
+			String url = "jdbc:mysql://localhost/Student_Management";
 			//계정 연결
-			con = DriverManager.getConnection(url, "sogong", "1234");
+			conn = DriverManager.getConnection(url, "sogong", "1234");
 			//Statement 객체를 얻음
-			stmt = con.createStatement();
+			stmt = conn.createStatement();
 			Stu_id.setEditable(true);
 			System.out.println("DB가 연결되었습니다.");
 		} catch (Exception e) {
@@ -96,8 +96,8 @@ public class Update_Student extends JFrame implements ActionListener{
 			if(stmt != null) {
 				stmt.close();
 			}
-			if(con != null) {
-				con.close();
+			if(conn != null) {
+				conn.close();
 			}
 		} catch(Exception ex) { }
 	}

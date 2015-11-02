@@ -18,13 +18,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
  
 
 public class Update_Info extends JFrame implements ActionListener{
-    Connection con;
+    Connection conn;
     Statement stmt;
     String get_id;
     JTextField  Stu_id;
@@ -174,11 +172,11 @@ public class Update_Info extends JFrame implements ActionListener{
 		try {
 			//DB연결하기 위한 url 저장
 			Class.forName("com.mysql.jdbc.Driver");
-			String url = "jdbc:mysql://localhost/student_management";
+			String url = "jdbc:mysql://localhost/Student_Management";
 			//계정 연결
-			con = DriverManager.getConnection(url, "sogong", "1234");
+			conn = DriverManager.getConnection(url, "sogong", "1234");
 			//Statement 객체를 얻음
-			stmt = con.createStatement();
+			stmt = conn.createStatement();
 			System.out.println("DB가 연결되었습니다.");
 		} catch (Exception e) {
 			e.printStackTrace(System.out);
@@ -190,8 +188,8 @@ public class Update_Info extends JFrame implements ActionListener{
 			if(stmt != null) {
 				stmt.close();
 			}
-			if(con != null) {
-				con.close();
+			if(conn != null) {
+				conn.close();
 			}
 		} catch(Exception ex) { }
 	}

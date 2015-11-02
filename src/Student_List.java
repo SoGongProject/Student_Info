@@ -15,8 +15,7 @@ public class Student_List extends JFrame implements ActionListener {
 	JButton     add, update, delete, view;
 	Connection conn;
 	DefaultTableModel dtm;
-	Statement  stat;
-	int        cmd;
+	Statement  stmt;
 	ResultSet rs;
 	ResultSetMetaData rsmd;
 	
@@ -81,11 +80,11 @@ public class Student_List extends JFrame implements ActionListener {
 		try {
 			//DB연결하기 위한 url 저장
 			Class.forName("com.mysql.jdbc.Driver");
-			String url = "jdbc:mysql://localhost/student_management";
+			String url = "jdbc:mysql://localhost/Student_Management";
 			//계정 연결
 			conn = DriverManager.getConnection(url, "sogong", "1234");
 			//Statement 객체를 얻음
-			stat = conn.createStatement();
+			stmt = conn.createStatement();
 			System.out.println("디비연결!!");
 		} catch (Exception e) {
 			e.printStackTrace(System.out);
@@ -94,8 +93,8 @@ public class Student_List extends JFrame implements ActionListener {
 
 	private void destroy() {
 		try {
-			if(stat != null) {
-				stat.close();
+			if(stmt != null) {
+				stmt.close();
 			}
 			if(conn != null) {
 				conn.close();
@@ -132,7 +131,7 @@ public class Student_List extends JFrame implements ActionListener {
 		contents = new Vector();
 		try{
 			//vecotr에 저장할 내용의 질의문
-			rs = stat.executeQuery("select * from Student order by ID");
+			rs = stmt.executeQuery("select * from Student order by ID");
 			//정보 임시저장
 			rsmd = rs.getMetaData();
 			//애트리뷰트의 이름 출력
