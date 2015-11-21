@@ -8,12 +8,9 @@ import javax.swing.*;
 public class login extends JFrame implements ActionListener{
 	
 	JTextField  user_id,user_bb;
-	JPasswordField password;
 	static String cid,cpw,cbb;
 	Label      lid, lpw, lbb;
-	JButton     bok, breset, bfind, bbank;
-	Connection conn;
-	Statement  stat;
+	JButton     bok, breset, badd;
 
 	public login() {
 		//title
@@ -44,6 +41,12 @@ public class login extends JFrame implements ActionListener{
 		bok.setForeground(new Color(255,224,140));
 		bok.setBackground(new Color(76,76,76));
 		bok.addActionListener(this);
+		
+		bottom.add(badd = new JButton("추가하기"));
+		badd.setForeground(new Color(255,224,140));
+		badd.setBackground(new Color(76,76,76));
+		badd.addActionListener(this);
+
 		//reset버튼
 		bottom.add(breset = new JButton("다시 작성"));
 		breset.setForeground(new Color(255,224,140));
@@ -52,7 +55,6 @@ public class login extends JFrame implements ActionListener{
 
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
-				destroy();
 				setVisible(false);
 				dispose();
 				System.exit(0);
@@ -60,72 +62,44 @@ public class login extends JFrame implements ActionListener{
 		});
 		add("Center", center);
 		add("South", bottom);
-		DBcon();//DB 연결
-		
 		setSize(400, 300);
 		setVisible(true);
 	}
-	//데이터베이스를 연결해줄 함수	
-	private void DBcon() {
-		try {
-			//DB연결하기 위한 url 저장
-			Class.forName("com.mysql.jdbc.Driver");
-			String url = "jdbc:mysql://localhost/Student_Management";
-			//계정 연결
-			conn = DriverManager.getConnection(url, "sogong", "1234");
-			//Statement 객체를 얻음
-			stat = conn.createStatement();
-			user_id.setEditable(true);
-			System.out.println("DB가 연결되었습니다.");
-		} catch (Exception e) {
-			e.printStackTrace(System.out);
-		}
-	}
-	
-	//연결된 데이터베이스를 끊어주는 함수
-	private void destroy() {
-		try {
-			if(stat != null) {
-				stat.close();
-			}
-			if(conn != null) {
-				conn.close();
-			}
-		} catch(Exception ex) { }
-	}
-	//모든 버튼을 활성시키는 함수
+
 	public void setEnable() {
 		bok.setEnabled(true);
+		badd.setEnabled(true);
 		breset.setEnabled(true);
 	}
-
 	
 	public void actionPerformed(ActionEvent e) {
 		ResultSet rs = null;//초기화
 		Component c = (Component) e.getSource();//버튼 값 받기
 		try {
 			if(c == bok) {//로그인 버튼을 눌렀을 때
-					cid = user_id.getText().trim();
-					
-					//입력하지 않았을 때 
-					if(cid == null || cid.length() == 0 ){
-						JOptionPane.showMessageDialog(getParent(),"모든 정보를 입력해주세요");
-						return ;
-					}
-					else if(cid == "guest"){ //오류
-						dispose();
-						new Student_List();
-					}
-					else if(cid == "professor"){ // 오류
-						dispose();
-						new Student_List();
-					}else
-						JOptionPane.showMessageDialog(getParent(),"등록되지 않은 정보 입니다.");
-					//잘못 입력했을 경우 모든 것을 초기화
-					setEnable();
-					user_id.setText("");
-					user_id.setEditable(true);
-			}else if(c == breset){
+				cid = user_id.getText();
+				//입력하지 않았을 때 
+				if(cid == null || cid.length() == 0 ){
+					JOptionPane.showMessageDialog(getParent(),"모든 정보를 입력해주세요");
+					return ;
+				}
+				else if(cid.equals("guest")){
+					dispose();
+					new Student_List();
+				}
+				else if(cid.equals("professor")){
+					dispose();
+					new CheckPassword();
+				}else
+					JOptionPane.showMessageDialog(getParent(),"등록되지 않은 정보 입니다.");
+				//잘못 입력했을 경우 모든 것을 초기화
+				setEnable();
+				user_id.setText("");
+				user_id.setEditable(true);
+			} else if(c == badd){
+				dispose();
+				new User_Add();
+			} else if(c == breset){
 				//reset에 되게 설정
 				setEnable();
 				user_id.setText("");
