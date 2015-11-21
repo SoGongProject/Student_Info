@@ -13,6 +13,7 @@ public class Student_List extends JFrame implements ActionListener {
 	JScrollPane scroll;
 	JLabel      ltop;
 	JButton     add, update, delete, view;
+	String get_id;
 	Connection conn;
 	DefaultTableModel dtm;
 	Statement  stmt;
@@ -22,6 +23,8 @@ public class Student_List extends JFrame implements ActionListener {
 
 	public Student_List() {
 		super("학생 정보 리스트 보기");
+		
+		get_id = login.cid;
 		getContentPane().setLayout(new BorderLayout());
 		
 		JPanel top = new JPanel();
@@ -57,6 +60,18 @@ public class Student_List extends JFrame implements ActionListener {
 		view.setForeground(new Color(255,224,140));
 		view.setBackground(new Color(76,76,76));
 		view.addActionListener(this);
+		
+		if(get_id.equals("guest")){
+			add.setEnabled(false);
+			update.setEnabled(false);
+			delete.setEnabled(false);
+			view.setEnabled(true);
+		}else if(get_id.equals("professor")){
+			add.setEnabled(true);
+			update.setEnabled(true);
+			delete.setEnabled(true);
+			view.setEnabled(true);			
+		}
 
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
@@ -89,7 +104,7 @@ public class Student_List extends JFrame implements ActionListener {
 		} catch (Exception e) {
 			e.printStackTrace(System.out);
 		}
-	}
+	}	
 
 	private void destroy() {
 		try {
